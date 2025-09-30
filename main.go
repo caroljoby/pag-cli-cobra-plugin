@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+
 	"github.com/IBM-Cloud/ibm-cloud-cli-sdk/bluemix/terminal"
 	"github.com/IBM-Cloud/ibm-cloud-cli-sdk/plugin"
 	"github.com/yathendra/cobrapagcliplugin/cmd"
@@ -14,12 +16,12 @@ func (p *pagPlugin) Run(context plugin.PluginContext, args []string) {
 		return
 	}
 
-	switch args[0] {
-	case "session":
-		cmd.SessionCmd.Execute()
-	default:
-		terminal.NewStdUI().Warn("Unknown command: " + args[0])
+	pagCmd := cmd.NewPagCmd(os.Stdout)
+	pagCmd.SetArgs(args)
+	if err := pagCmd.Execute(); err != nil {
+		os.Exit(1)
 	}
+
 }
 
 func (p *pagPlugin) GetMetadata() plugin.PluginMetadata {
@@ -39,12 +41,30 @@ func (p *pagPlugin) GetMetadata() plugin.PluginMetadata {
 				Description: "Session Management commands",
 				Usage:       "ibmcloud pag session",
 			},
-			// {
-			// 	Namespace:   "pag",
-			// 	Name:        "goodbye",
-			// 	Description: "Print goodbye message",
-			// 	Usage:       "ibmcloud pag goodbye",
-			// },
+			{
+				Namespace:   "pag",
+				Name:        "gateway",
+				Description: "Gateway Management commands",
+				Usage:       "ibmcloud pag gateway",
+			},
+			{
+				Namespace:   "pag",
+				Name:        "gateway set",
+				Description: "Set the gateway host URL",
+				Usage:       "ibmcloud pag gateway set <gateway url> [--break-glass] [--insecure]",
+			},
+			{
+				Namespace:   "pag",
+				Name:        "gateway get",
+				Description: "Get the gateway host URL",
+				Usage:       "ibmcloud pag gateway get [--output <json>] [--details]",
+			},
+			{
+				Namespace:   "pag",
+				Name:        "gateway update",
+				Description: "Update PAG gateway to the latest proxy image",
+				Usage:       "ibmcloud pag gateway update",
+			},
 		},
 	}
 }
