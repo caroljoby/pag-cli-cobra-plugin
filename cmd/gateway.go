@@ -36,14 +36,14 @@ func NewGatewayCmd(out io.Writer) *cobra.Command {
   					ibmcloud pag gateway update`,
 	}
 
-	gatewayCmd.AddCommand(newGatewaySetCmd(out))
-	gatewayCmd.AddCommand(newGatewayGetCmd(out))
-	gatewayCmd.AddCommand(newGatewayUpdateCmd(out))
+	gatewayCmd.AddCommand(gatewaySetCmd(out))
+	gatewayCmd.AddCommand(gatewayGetCmd(out))
+	gatewayCmd.AddCommand(gatewayUpdateCmd(out))
 
 	return gatewayCmd
 }
 
-func newGatewaySetCmd(out io.Writer) *cobra.Command {
+func gatewaySetCmd(out io.Writer) *cobra.Command {
 
 	gatewaySetCmd := &cobra.Command{
 		Use:   "set [gateway_host_endpoint]",
@@ -72,7 +72,7 @@ func newGatewaySetCmd(out io.Writer) *cobra.Command {
 	return gatewaySetCmd
 }
 
-func newGatewayGetCmd(out io.Writer) *cobra.Command {
+func gatewayGetCmd(out io.Writer) *cobra.Command {
 
 	gatewayGetCmd := &cobra.Command{
 		Use:   "get",
@@ -84,10 +84,10 @@ func newGatewayGetCmd(out io.Writer) *cobra.Command {
 
 			if outputFormat == "json" {
 				// print JSON
-				fmt.Println("Print in json format")
+				fmt.Fprintf(out, "Print in json format\n")
 			} else {
 				// default plain output
-				fmt.Println("Print in plain format")
+				fmt.Fprintf(out, "Print in plain format\n")
 			}
 			return nil
 		},
@@ -98,7 +98,7 @@ func newGatewayGetCmd(out io.Writer) *cobra.Command {
 	return gatewayGetCmd
 }
 
-func newGatewayUpdateCmd(out io.Writer) *cobra.Command {
+func gatewayUpdateCmd(out io.Writer) *cobra.Command {
 
 	updateGatewayCmd := &cobra.Command{
 		Use:   "update",

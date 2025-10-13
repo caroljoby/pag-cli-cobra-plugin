@@ -49,6 +49,12 @@ func (p *pagPlugin) GetMetadata() plugin.PluginMetadata {
 			},
 			{
 				Namespace:   "pag",
+				Name:        "ssh",
+				Description: "SSH access to Linux Virtual Server Instances in an IBM Cloud VPC",
+				Usage:       "ibmcloud pag ssh",
+			},
+			{
+				Namespace:   "pag",
 				Name:        "gateway set",
 				Description: "Set the gateway host URL",
 				Usage:       "ibmcloud pag gateway set <gateway url> [--break-glass] [--insecure]",
@@ -64,6 +70,24 @@ func (p *pagPlugin) GetMetadata() plugin.PluginMetadata {
 				Name:        "gateway update",
 				Description: "Update PAG gateway to the latest proxy image",
 				Usage:       "ibmcloud pag gateway update",
+			},
+			{
+				Namespace:   "pag",
+				Name:        "ssh ca",
+				Description: "Retrieve the CA Keys",
+				Usage:       "ibmcloud pag ssh ca",
+			},
+			{
+				Namespace:   "pag",
+				Name:        "ssh connect",
+				Description: "Connect to new ssh session for a virtual server instance",
+				Usage:       "ibmcloud pag ssh connect <virtual server address> [--ticket-id <ticket-id>]",
+			},
+			{
+				Namespace:   "pag",
+				Name:        "ssh cert get",
+				Description: "Download certificate",
+				Usage:       "ibmcloud pag ssh cert get [--ticket-id <ticket-id>]",
 			},
 		},
 	}
