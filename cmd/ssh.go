@@ -66,6 +66,7 @@ func getSSHCertDownloadCmd(out io.Writer) *cobra.Command {
 		},
 	}
 
+	// TODO : Change to stringVar to capture ticket id
 	sshCertDownloadCmd.Flags().BoolVar(&isTicketIDEnabled, "ticket-id", false, "Ticket ID for the session")
 
 	return sshCertDownloadCmd
