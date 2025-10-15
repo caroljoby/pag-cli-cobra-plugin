@@ -29,6 +29,7 @@ func NewPagCmd(out io.Writer) *cobra.Command {
 	pagCmd.AddCommand(NewSessionCmd(out))
 	pagCmd.AddCommand(NewGatewayCmd(out))
 	pagCmd.AddCommand(NewSSHCmd(out))
+	pagCmd.AddCommand(NewKSCmd(out))
 
 	return pagCmd
 }

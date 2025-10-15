@@ -55,6 +55,11 @@ func (p *pagPlugin) GetMetadata() plugin.PluginMetadata {
 			},
 			{
 				Namespace:   "pag",
+				Name:        "ks",
+				Description: "Kubernetes access to IBM Cloud Kubernetes Clusters",
+			},
+			{
+				Namespace:   "pag",
 				Name:        "gateway set",
 				Description: "Set the gateway host URL",
 				Usage:       "ibmcloud pag gateway set <gateway url> [--break-glass] [--insecure]",
@@ -88,6 +93,10 @@ func (p *pagPlugin) GetMetadata() plugin.PluginMetadata {
 				Name:        "ssh cert get",
 				Description: "Download certificate",
 				Usage:       "ibmcloud pag ssh cert get [--ticket-id <ticket-id>]",
+			},
+			{
+				Name:        "pag ks impersonate",
+				Description: "Kubernetes impersonation",
 			},
 		},
 	}
