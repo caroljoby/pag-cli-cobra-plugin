@@ -10,81 +10,55 @@ import (
 // NewSessionCmd builds the 'session' command and its subcommands.
 func NewSessionCmd(out io.Writer) *cobra.Command {
 	if out == nil {
+		fmt.Print("nil out in session command\n")
 		out = io.Discard
 	}
 
 	sessionCmd := &cobra.Command{
 		Use:   "session",
-		Short: "Manage sessions",
+		Short: "Session Management commands",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Fprintln(out, "Use 'session list' to list active sessions.")
+		},
+		Example: `ibmcloud pag session list`,
 	}
 
-	sessionCmd.AddCommand(newSessionDeleteCmd(out))
-	sessionCmd.AddCommand(newSessionDeleteUserCmd(out))
-	sessionCmd.AddCommand(newSessionStatusCmd(out))
-
+	sessionCmd.AddCommand(listSessionCmd(out))
 	return sessionCmd
 }
 
-func newSessionDeleteCmd(out io.Writer) *cobra.Command {
-	return &cobra.Command{
-		Use:   "delete [session_id]",
-		Short: "Delete a session by ID",
-		Args:  cobra.ExactArgs(1),
+func NewSessionsCmd(out io.Writer) *cobra.Command {
+	if out == nil {
+		fmt.Print("nil out in sessions command\n")
+		out = io.Discard
+	}
+
+	sessionsCmd := &cobra.Command{
+		Use:   "sessions",
+		Short: "Session Management commands",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			sessionID := args[0]
-			// Ideally call into a service layer here.
-			_, _ = fmt.Fprintf(out, "Deleting session with ID: %s\n", sessionID)
+			// TODO : Implement Proxy service call here
+			fmt.Fprintln(out, "Listing all active sessions\n.")
 			return nil
 		},
+		Example: `ibmcloud pag sessions`,
 	}
+
+	sessionsCmd.AddCommand(listSessionCmd(out))
+	return sessionsCmd
 }
 
-func newSessionDeleteUserCmd(out io.Writer) *cobra.Command {
-	var user string
+func listSessionCmd(out io.Writer) *cobra.Command {
 
-	c := &cobra.Command{
-		Use:   "deleteuser",
-		Short: "Delete sessions for a user",
+	listImpersonateCmd := &cobra.Command{
+		Use:   "list",
+		Short: "Display list of sessions",
 		RunE: func(cmd *cobra.Command, args []string) error {
-			if user == "" {
-				return fmt.Errorf("--user flag is required")
-			}
-			_, _ = fmt.Fprintf(out, "Deleting sessions for user: %s\n", user)
+			// TODO : Implement Proxy service call here
+			fmt.Fprintln(out, "Listing all active sessions\n.")
 			return nil
 		},
 	}
 
-	c.Flags().StringVar(&user, "user", "", "User ID")
-	return c
-}
-
-func newSessionStatusCmd(out io.Writer) *cobra.Command {
-	var byUser bool
-
-	c := &cobra.Command{
-		Use:   "status [session_id]",
-		Short: "Check session status or all sessions for a user",
-		Args:  cobra.MaximumNArgs(1),
-		RunE: func(cmd *cobra.Command, args []string) error {
-			if byUser {
-				user, _ := cmd.Flags().GetString("user")
-				if user == "" {
-					return fmt.Errorf("--user flag is required when --by-user is set")
-				}
-				_, _ = fmt.Fprintf(out, "Status for all sessions of user %s: %s\n", user, "ACTIVE")
-				return nil
-			}
-
-			if len(args) != 1 {
-				return fmt.Errorf("expected session id when not using --by-user")
-			}
-			sessionID := args[0]
-			_, _ = fmt.Fprintf(out, "Status of session %s: ACTIVE\n", sessionID)
-			return nil
-		},
-	}
-
-	c.Flags().BoolVar(&byUser, "by-user", false, "Show status for all sessions of a user")
-	c.Flags().String("user", "", "User ID (required with --by-user)")
-	return c
+	return listImpersonateCmd
 }
