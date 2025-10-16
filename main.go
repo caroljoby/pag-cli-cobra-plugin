@@ -39,7 +39,13 @@ func (p *pagPlugin) GetMetadata() plugin.PluginMetadata {
 				Namespace:   "pag",
 				Name:        "session",
 				Description: "Session Management commands",
-				Usage:       "ibmcloud pag session",
+				Usage:       "ibmcloud pag session list",
+			},
+			{
+				Namespace:   "pag",
+				Name:        "sessions",
+				Description: "Session Management commands",
+				Usage:       "ibmcloud pag sessions",
 			},
 			{
 				Namespace:   "pag",
@@ -51,14 +57,27 @@ func (p *pagPlugin) GetMetadata() plugin.PluginMetadata {
 				Namespace:   "pag",
 				Name:        "ssh",
 				Description: "SSH access to Linux Virtual Server Instances in an IBM Cloud VPC",
-				Usage:       "ibmcloud pag ssh",
+				Usage:       "ibmcloud pag ssh ca\nibmcloud pag ssh cert get [--ticket-id <ticket-id>]\nibmcloud pag ssh connect <virtual server address> [--ticket-id <ticket-id>]",
 			},
 			{
 				Namespace:   "pag",
 				Name:        "ks",
 				Description: "Kubernetes access to IBM Cloud Kubernetes Clusters",
+				Usage:       "ibmcloud pag ks config <target-cluster> [--ticket-id <ticket-id>] [--endpoint <private|public|vpe>]\nibmcloud pag ks impersonate add <cluster name>\nibmcloud pag ks impersonate delete <cluster name>\nibmcloud pag ks impersonate list",
 			},
 			{
+				Namespace:   "pag",
+				Name:        "oc",
+				Description: "Openshift access to IBM Cloud Openshift Clusters",
+				Usage:       "ibmcloud pag oc config <target-cluster> [--passcode <passcode>] [--apikey <apikey>] [--ticket-id <ticket-id>] [--endpoint <private|public|vpe>]\nibmcloud pag oc impersonate add <cluster name>\nibmcloud pag oc impersonate delete <cluster name>\nibmcloud pag oc impersonate list",
+			},
+			{
+				Namespace:   "pag",
+				Name:        "break-glass",
+				Description: "Break-glass key management commands",
+				Usage:       "ibmcloud pag break-glass key create\nibmcloud pag break-glass key delete\nibmcloud pag break-glass key get\nibmcloud pag break-glass key list",
+			},
+			/*{
 				Namespace:   "pag",
 				Name:        "gateway set",
 				Description: "Set the gateway host URL",
@@ -97,7 +116,8 @@ func (p *pagPlugin) GetMetadata() plugin.PluginMetadata {
 			{
 				Name:        "pag ks impersonate",
 				Description: "Kubernetes impersonation",
-			},
+				Usage:       "ibmcloud pag ks impersonate add <cluster name>\nibmcloud pag ks impersonate delete <cluster name>\nibmcloud pag ks impersonate list",
+			},*/
 		},
 	}
 }

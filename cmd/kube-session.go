@@ -15,8 +15,9 @@ func NewKSCmd(out io.Writer) *cobra.Command {
 	}
 
 	ksCmd := &cobra.Command{
-		Use:   "ks",
-		Short: "Kubernetes access to IBM Cloud Kubernetes Clusters",
+		Use:       "ks",
+		Short:     "Kubernetes access to IBM Cloud Kubernetes Clusters",
+		ValidArgs: []cobra.Completion{"config", "impersonate"},
 		Run: func(cmd *cobra.Command, args []string) {
 			fmt.Fprintln(out, "Use 'config' to download kubernetes config file.\nUse 'impersonate' to manage impersonation of clusters.")
 		},
